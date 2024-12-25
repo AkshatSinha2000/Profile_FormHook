@@ -109,7 +109,6 @@ const SetupProfile = () => {
   };
 
   const renderItem = (item: any) => {
-    console.log(item.value);
     return (
       <View style={values === item.value ? styles.itemSelected : styles.item}>
         <Text
@@ -181,7 +180,6 @@ const SetupProfile = () => {
     }/${date.getFullYear()}`;
     setdate(formattedDate);
     setValue('birthday', formattedDate);
-    console.log('date set is', formattedDate);
     hideDatePicker();
   };
 

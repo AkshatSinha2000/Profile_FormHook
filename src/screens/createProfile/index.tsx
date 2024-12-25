@@ -38,7 +38,6 @@ const CreateProfile = () => {
   const validatePhoneNumberLength = (phoneNumber: string, countryCode: any) => {
     try {
       const parsedPhone = parsePhoneNumber(phoneNumber, countryCode);
-      console.log(parsedPhone?.isValid());
       if (parsedPhone) {
         const numberLength = parsedPhone.nationalNumber.length;
         const validLength = parsedPhone.isValid();
@@ -113,7 +112,6 @@ const CreateProfile = () => {
         navigation.navigate(screen.OTP);
         reset();
         setCheckbox(false);
-        console.log(data);
       }
     } catch (e) {
       console.log(e);

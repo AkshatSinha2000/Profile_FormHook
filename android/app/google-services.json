@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "110530425219",
+    "project_id": "formikproject",
+    "storage_bucket": "formikproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110530425219:android:e9f47c5382dab5382fc6b6",
+        "android_client_info": {
+          "package_name": "com.formikproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPqS3OFVlusABHDlZPZzvlerp-Edegh8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

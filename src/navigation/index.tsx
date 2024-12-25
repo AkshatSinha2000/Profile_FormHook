@@ -6,6 +6,7 @@ import CreateProfile from '../screens/createProfile';
 import SetupProfile from '../screens/setupProfile';
 import Avatar from '../screens/avatar';
 import OTP from '../screens/otp';
+import Notification from '../screens/notification.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,11 @@ const MyStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name={screen.Notification}
+          component={Notification}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name={screen.CreateProfile}
           component={CreateProfile}

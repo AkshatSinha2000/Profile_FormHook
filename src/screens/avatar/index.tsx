@@ -28,7 +28,6 @@ const Avatar = () => {
   const navigation = useNavigation<any>();
   const [Select, setSelect] = useState('');
   const handleSubmit = async () => {
-    console.log('first', Select);
     try {
       await AsyncStorage.setItem('avatar', JSON.stringify(Select));
       await AsyncStorage.setItem('@new_post_image','');
