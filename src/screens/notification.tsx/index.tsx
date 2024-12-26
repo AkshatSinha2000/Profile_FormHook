@@ -1,74 +1,82 @@
-import React, { useEffect } from 'react';
-import messaging from '@react-native-firebase/messaging';
-import { Text, TouchableOpacity } from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+// import {styles} from './styles';
 import PushNotification from 'react-native-push-notification';
-
-function Notification() {
-
-  async function requestUserPermission() {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
-    }
-  }
+// import PushController from '../../utils/PushNotification';
+import {getMessaging} from '@react-native-firebase/messaging';
 
 
-  const getToken = async () => {
-    const token = await messaging().getToken();
-    console.log('FCM Token:', token);
+
+const Notification = () => {
+  const tokenid = async () => {
+    await getMessaging().registerDeviceForRemoteMessages();
+    const token = await getMessaging().getToken();
+    console.log(token);
   };
-
-
-  const initLocalNotifications = () => {
-    PushNotification.configure({
-      onNotification: function (notification) {
-        console.log('Local Notification:', notification);
-      },
-      requestPermissions: true,
-    });
-  };
-
-
-  const triggerLocalNotification = () => {
-    PushNotification.localNotification({
-      title: 'Test Notification',
-      message: 'This is a local notification triggered by pressing the button.',
-    });
-  };
-
-
-  const scheduleLocalNotification = () => {
-    const date = new Date();
-    date.setSeconds(date.getSeconds() + 10); 
-
-    PushNotification.localNotificationSchedule({
-      title: 'Scheduled Notification',
-      message: 'This is a scheduled local notification.',
-      date: date, 
-    });
-
-    console.log('Scheduled notification for', date.toString());
-  };
-
-
   useEffect(() => {
-    requestUserPermission();
-    getToken();
+    tokenid();
   }, []);
 
-  const handlePress = () => {
-    scheduleLocalNotification();  
+  const LocalNotification = () => {
+    const key = Date.now().toString();
+    PushNotification.createChannel(
+      {
+        channelId: key,
+        channelName: 'Local message hgdhjsjk',
+        channelDescription: 'Notification for Local message',
+        importance: 4,
+        vibrate: true,
+      },
+      created => console.log(`createChannel returned '${created}'`),
+    );
+
+    const scheduleTime = new Date(Date.now() + 5000);
+
+    PushNotification.localNotificationSchedule({
+      channelId: key,
+      title: 'Local Message jhdghjsjjdf',
+      message: 'Local message !!',
+      date: scheduleTime,
+      allowWhileIdle: true,
+      vibrate: true,
+      playSound: true,
+      soundName: 'default',
+      repeatType: 'day',
+      repeatTime: 1,
+    });
+
+    console.log(`Notification scheduled for: ${scheduleTime}`);
   };
 
+  
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <Text>Press Me for Notifications</Text>
-    </TouchableOpacity>
+    <SafeAreaView>
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        // style={styles.scrollView}
+        >
+        <View 
+        // style={styles.listHeader}
+        >
+          <Text>Push Notifications</Text>
+        </View>
+      </ScrollView>
+      <TouchableOpacity onPress={LocalNotification} 
+      // style={styles.button}
+      >
+          <Text 
+          // style={styles.text}
+          >Push Notification</Text>
+        </TouchableOpacity>
+      {/* <PushController /> */}
+    </SafeAreaView>
   );
-}
+};
 
 export default Notification;
